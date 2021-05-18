@@ -101,6 +101,58 @@ void Inicio(Pontas *O, dados E){
     
 }
 
+void Retira_Fim(Pontas *O, dados *E){
+
+    P  *aux = (P*) malloc(sizeof(P));
+
+    aux = O->direita;
+
+    if (O->tam<=0)
+    {
+        printf("Error");
+    }else
+    {
+        
+        *E = aux->dados;
+
+        O->tam--;
+        O->direita=aux->E;
+
+        free(aux);
+
+    }
+}
+
+void Retira_Inicial(Pontas *O, dados *E){
+
+    P  *aux = (P*) malloc(sizeof(P));
+
+    aux = O->esquerda;
+
+    if (O->tam<=0)
+    {
+        printf("Error");
+    }else
+    {
+        
+        *E = aux->dados;
+
+        O->tam--;
+        O->esquerda=aux->D;
+
+        free(aux);
+
+    }
+}
+
+void PrintaDados(dados *E){
+
+    printf("\nCPF: %d",E->cpf);
+    printf("\nCodgo: %d",E->code);
+    printf("\nNome: %s",E->name);
+
+}
+
 int main(){ 
     
     Pontas *Dados_Pessoa = (Pontas *) malloc(sizeof(Pontas));
@@ -114,7 +166,7 @@ int main(){
     do
     {
 
-        printf("\nDigite:\n0)Sair\n1)Mostrar valor a Direita:\n2)Mostrar valor a Esquerda:\n3)Incluir dados:\n");
+        printf("\nDigite:\n0)Sair\n1)Mostrar valor a Direita:\n2)Mostrar valor a Esquerda:\n3)Incluir dados:\n4)Retirar valor a Esquerda:\n5)Retirar valor a Direita:\n");
         scanf("%d", &op);
         
         switch (op)
@@ -122,13 +174,13 @@ int main(){
 
         case 1:
 
-            printf("\nO valor a Direita: %d",Dados_Pessoa->direita->dados.code);
+            PrintaDados(&Dados_Pessoa->direita->dados);
             
             break;
         
         case 2:
 
-            printf("\nO valor a Esquerda: %d",Dados_Pessoa->esquerda->dados.code);
+            PrintaDados(&Dados_Pessoa->esquerda->dados);
 
             break;
 
@@ -169,11 +221,27 @@ int main(){
 
             break;
 
+        case 4:
+
+            Retira_Inicial(Dados_Pessoa, Dados);
+
+            PrintaDados(Dados);
+
+            break;
+
+        case 5:
+
+            Retira_Fim(Dados_Pessoa, Dados);
+
+            PrintaDados(Dados);
+
+            break;
+
         default:
             break;
         }
 
-    } while (op > 0 && op < 4);
+    } while (op > 0 && op < 6);
     
     return 0;
 }
